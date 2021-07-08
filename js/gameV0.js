@@ -22,6 +22,7 @@ let game = new Phaser.Game(config);
 let backImage;
 let frog, mumFrog;
 let up, down, left, right;
+let tweenHeart;
 
 function init() {
    
@@ -56,6 +57,16 @@ function create() {
 
     heart = this.add.image(240,160,'heartImage');
     heart.setScale(0.0);
+
+    tweenHeart = this.tweens.add({
+        targets: heart,
+        scale: 4.0,
+        duration: 2000, 
+        ease: 'Linear', 
+        yoyo: false,
+        loop: 0,
+        paused: true
+        });
     //heart.setVisible(false);
 
 }
@@ -83,15 +94,7 @@ function update() {
     }
 
     if(Phaser.Geom.Intersects.RectangleToRectangle (frog.getBounds(),mumFrog.getBounds())) {
-        let tweenHeart = this.tweens.add({
-            targets: heart,
-            alpha: 0, 
-            scale: 0,
-            duration: 2000, 
-            ease: 'Linear', 
-            yoyo: true,
-            //loop: -1
-            });
+        tweenHeart.play();
         //heart.setVisible(true);
         //this.scene.restart(); 
     }
